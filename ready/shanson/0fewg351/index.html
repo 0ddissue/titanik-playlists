@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Бесконечный Шансон</title>
+<title>Песконечный плеер Шансона</title>
 <style>
   * { box-sizing: border-box; }
   body {
@@ -166,6 +166,7 @@
     setProgress(0);
     nameEl.textContent = t.name;
     artistEl.textContent = t.artist;
+    updateMediaSession();
     if (autoplay) audio.play();
   }
 
@@ -179,6 +180,22 @@
     if (i === index) { audio.play(); return; }
     history.push(index);
     load(i, true);
+  }
+
+  function updateMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    const t = tracks[index];
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: 'Песконечный плеер Шансона',
+      artist: t.artist + ' — ' + t.name,
+    });
+  }
+
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.setActionHandler('play', () => audio.play());
+    navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+    navigator.mediaSession.setActionHandler('previoustrack', () => document.getElementById('prev').click());
+    navigator.mediaSession.setActionHandler('nexttrack', () => document.getElementById('next').click());
   }
 
   function randomIndex() {
@@ -240,8 +257,16 @@
     if (history.length) load(history.pop(), true);
     else load(index - 1, true);
   });
-  audio.addEventListener('play', () => { setIcon(true); still.classList.remove('show'); });
-  audio.addEventListener('pause', () => { setIcon(false); freezeCassette(); });
+  audio.addEventListener('play', () => {
+    setIcon(true);
+    still.classList.remove('show');
+    if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+  });
+  audio.addEventListener('pause', () => {
+    setIcon(false);
+    freezeCassette();
+    if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
+  });
 
   function freezeCassette() {
     if (!cassette.naturalWidth) return;
