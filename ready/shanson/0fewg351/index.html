@@ -234,11 +234,28 @@
     render();
   }
 
+  const preloader = new Audio();
+  preloader.preload = 'auto';
+  const saveData = navigator.connection && navigator.connection.saveData;
+  let nextIdx = 0;
+
+  function pickNext() {
+    let i;
+    do { i = Math.floor(Math.random() * N); } while (i === index);
+    return i;
+  }
+
+  function preloadNext() {
+    nextIdx = pickNext();
+    if (!saveData) preloader.src = tracks[nextIdx].url;
+  }
+
   function setTrack(i, autoplay) {
     index = i;
     const t = tracks[i];
     audio.preload = 'auto';
     audio.src = t.url;
+    preloadNext();
     setProgress(0);
     nameEl.textContent = t.name;
     artistEl.textContent = t.artist;
@@ -272,12 +289,6 @@
     navigator.mediaSession.setActionHandler('pause', () => audio.pause());
     navigator.mediaSession.setActionHandler('previoustrack', () => document.getElementById('prev').click());
     navigator.mediaSession.setActionHandler('nexttrack', () => document.getElementById('next').click());
-  }
-
-  function randomIndex() {
-    let i;
-    do { i = Math.floor(Math.random() * N); } while (i === index);
-    return i;
   }
 
   function setIcon(playing) {
@@ -328,7 +339,7 @@
   document.getElementById('toggle').addEventListener('click', () => {
     if (audio.paused) audio.play(); else audio.pause();
   });
-  document.getElementById('next').addEventListener('click', () => play(randomIndex()));
+  document.getElementById('next').addEventListener('click', () => play(nextIdx));
   document.getElementById('prev').addEventListener('click', () => {
     if (history.length) load(history.pop(), true);
     else load(index - 1, true);
@@ -369,7 +380,7 @@
     if (audio.duration) audio.currentTime = (progress.value / 1000) * audio.duration;
     seeking = false;
   });
-  audio.addEventListener('ended', () => play(index + 1));
+  audio.addEventListener('ended', () => play(nextIdx));
 
   load(0, false);
 </script>
