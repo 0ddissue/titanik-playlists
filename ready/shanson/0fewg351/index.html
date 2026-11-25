@@ -69,6 +69,13 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .list li.active .t { color: #ff9f0a; }
+  .promo {
+    display: none; width: 100%; height: 48px; border-radius: 12px; line-height: 48px;
+    background: linear-gradient(90deg, #9929ea, #5808fb); color: #fff;
+    font-size: 17px; font-weight: 600; text-align: center; white-space: nowrap;
+  }
+  .now.promo-on .now-text { display: none; }
+  .now.promo-on .promo { display: block; }
   .list li[hidden] { display: none; }
   #snow { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
   .wrap { position: relative; z-index: 1; }
@@ -81,9 +88,12 @@
     <canvas class="still" id="still"></canvas>
   </div>
 
-  <div class="now">
-    <div class="now-name" id="name">Нажмите play</div>
-    <div class="now-artist" id="artist">&nbsp;</div>
+  <div class="now" id="now">
+    <div class="now-text">
+      <div class="now-name" id="name">Нажмите play</div>
+      <div class="now-artist" id="artist">&nbsp;</div>
+    </div>
+    <div class="promo" id="promo"></div>
   </div>
 
   <div class="controls">
@@ -381,6 +391,25 @@
     seeking = false;
   });
   audio.addEventListener('ended', () => play(nextIdx));
+
+  const nowEl = document.getElementById('now');
+  const promoEl = document.getElementById('promo');
+  const PROMO_PHRASES = ['Заказать другие коллекции?', 'Промокод ТИТАНИК25', 'Скидка 25%'];
+  const PROMO_EVERY = 45000, PROMO_FOR = 10000, PROMO_STEP = 2500;
+  function runPromo() {
+    let k = 0;
+    promoEl.textContent = PROMO_PHRASES[k];
+    nowEl.classList.add('promo-on');
+    const rot = setInterval(() => {
+      k = (k + 1) % PROMO_PHRASES.length;
+      promoEl.textContent = PROMO_PHRASES[k];
+    }, PROMO_STEP);
+    setTimeout(() => {
+      clearInterval(rot);
+      nowEl.classList.remove('promo-on');
+    }, PROMO_FOR);
+  }
+  setInterval(runPromo, PROMO_EVERY);
 
   load(0, false);
 </script>
