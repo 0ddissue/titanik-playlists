@@ -32,7 +32,6 @@
     transition: transform 0.2s ease, background 0.2s ease;
   }
   .collections button:active { transform: scale(0.98); background: rgba(255, 255, 255, 0.14); }
-  .collections .price { flex-shrink: 0; font-weight: 600; color: #d1d1d6; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -42,7 +41,7 @@
   <p class="lead">Напишите нам и соберем ваш личный плеер</p>
 
   <div class="socials">
-    <a href="https://vk.ru/gim243700334?entrypoint=community_page" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" data-umami-event="Клик ВК">
+    <a href="https://vk.me/titanikshop" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" data-umami-event="Клик ВК">
       <img src="vk.png" alt="ВКонтакте">
     </a>
     <a href="https://t.me/titanikshop" target="_blank" rel="noopener noreferrer" aria-label="Telegram" data-umami-event="Клик Telegram">
@@ -52,14 +51,41 @@
 
   <p class="more">или заберите готовые коллекции:</p>
   <div class="collections">
-    <button type="button"><span>Русская дискотека</span><span class="price">99 руб</span></button>
-    <button type="button"><span>Зарубежная вечеринка</span><span class="price">99 руб</span></button>
-    <button type="button"><span>Классика рок музыки</span><span class="price">99 руб</span></button>
-    <button type="button"><span>Драйвовая дорожная</span><span class="price">99 руб</span></button>
-    <button type="button"><span>Шедевры классической музыки</span><span class="price">99 руб</span></button>
-    <button type="button"><span>Великолепный джаз</span><span class="price">99 руб</span></button>
+    <button type="button"><span>Русская дискотека</span></button>
+    <button type="button"><span>Зарубежная вечеринка</span></button>
+    <button type="button"><span>Классика рок музыки</span></button>
+    <button type="button"><span>Драйвовая дорожная</span></button>
+    <button type="button"><span>Шедевры классической музыки</span></button>
+    <button type="button"><span>Великолепный джаз</span></button>
   </div>
 </div>
+
+<div class="popup" id="popup" aria-hidden="true">
+  <div class="popup-box">
+    <p class="popup-title" id="popupTitle"></p>
+    <p class="popup-text">Размер оплаты — на ваше усмотрение, но мы были бы благодарны сумме от 100 руб.</p>
+    <p class="popup-text">После оплаты пришлите нам чек, чтобы активировать новый плейлист.</p>
+    <a class="popup-pay" href="https://finance.ozon.ru/apps/sbp/ozonbankpay/01a214c6-c3a9-755a-89a2-f50ed8fbccd5" target="_blank" rel="noopener noreferrer" data-umami-event="Оплата">Оплатить</a>
+    <button type="button" class="popup-close" id="popupClose">Закрыть</button>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const popup = document.getElementById('popup');
+    const popupTitle = document.getElementById('popupTitle');
+    const close = () => { popup.classList.remove('show'); popup.setAttribute('aria-hidden', 'true'); };
+    document.querySelectorAll('.collections button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        popupTitle.textContent = btn.textContent;
+        popup.classList.add('show');
+        popup.setAttribute('aria-hidden', 'false');
+      });
+    });
+    document.getElementById('popupClose').addEventListener('click', close);
+    popup.addEventListener('click', e => { if (e.target === popup) close(); });
+  })();
+</script>
 
 <script>
   (() => {
