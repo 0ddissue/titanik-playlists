@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9f81cbdc-96dc-4ce3-86f3-2131fbf2d56d"></script>
-<title>Другие коллекции</title>
+<title>Заказать микс песен</title>
 <style>
   * { box-sizing: border-box; }
   body {
@@ -14,29 +14,32 @@
   }
   #snow { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
   .wrap { position: relative; z-index: 1; max-width: 460px; margin: 0 auto; padding: 40px 20px 48px; }
-  h1 { font-size: 22px; font-weight: 600; text-align: center; margin: 0 0 14px; line-height: 1.3; }
+  h1 { font-size: 24px; font-weight: 600; text-align: center; margin: 0 0 12px; line-height: 1.3; }
   .lead { font-size: 16px; color: #d1d1d6; text-align: center; margin: 0 0 22px; line-height: 1.5; }
   .socials { display: flex; justify-content: center; gap: 28px; margin-bottom: 30px; }
   .socials a {
-    width: 64px; height: 64px; border-radius: 16px; display: block; overflow: hidden;
+    width: 64px; height: 64px; border-radius: 50%; display: block; overflow: hidden;
     transition: transform 0.2s ease;
   }
   .socials a:active { transform: scale(0.92); }
-  .socials img { width: 100%; height: 100%; display: block; object-fit: contain; }
-  h2 { font-size: 17px; font-weight: 600; margin: 0 0 12px; }
-  ul { list-style: none; margin: 0; padding: 0; }
-  li {
-    padding: 13px 16px; margin-bottom: 8px; border-radius: 12px;
-    background: rgba(255, 255, 255, 0.08); font-size: 16px; line-height: 1.35;
+  .socials img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .more { font-size: 16px; color: #d1d1d6; text-align: center; margin: 0 0 16px; }
+  .collections { display: flex; flex-direction: column; gap: 10px; }
+  .collections button {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 14px 18px; border: none; border-radius: 12px; cursor: pointer;
+    background: rgba(255, 255, 255, 0.08); color: #fff; font: inherit; font-size: 16px; text-align: left;
+    transition: transform 0.2s ease, background 0.2s ease;
   }
-  .mix { margin-top: 18px; text-align: center; font-size: 16px; color: #d1d1d6; }
+  .collections button:active { transform: scale(0.98); background: rgba(255, 255, 255, 0.14); }
+  .collections .price { flex-shrink: 0; font-weight: 600; color: #d1d1d6; white-space: nowrap; }
 </style>
 </head>
 <body>
 <canvas id="snow" aria-hidden="true"></canvas>
 <div class="wrap">
-  <h1>Чтобы приобрести другую музыкальную коллекцию</h1>
-  <p class="lead">напишите в любой удобный вам мессенджер:</p>
+  <h1>Заказать микс песен на свой вкус</h1>
+  <p class="lead">Напишите нам и соберем ваш личный плеер</p>
 
   <div class="socials">
     <a href="https://vk.ru/gim243700334?entrypoint=community_page" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" data-umami-event="Клик ВК">
@@ -47,17 +50,15 @@
     </a>
   </div>
 
-  <h2>Наши коллекции</h2>
-  <ul>
-    <li>Русские или зарубежные исполнители</li>
-    <li>Драйвовые треки в дорогу</li>
-    <li>Дискотеки 80-х, 90-х, 2000-х</li>
-    <li>Любые жанры рок-музыки</li>
-    <li>Детские песни</li>
-    <li>Классическая музыка и джаз</li>
-    <li>Современные хиты</li>
-  </ul>
-  <p class="mix">или сделаем микс песен на ваш вкус</p>
+  <p class="more">или заберите готовые коллекции:</p>
+  <div class="collections">
+    <button type="button"><span>Русская дискотека</span><span class="price">99 руб</span></button>
+    <button type="button"><span>Зарубежная вечеринка</span><span class="price">99 руб</span></button>
+    <button type="button"><span>Классика рок музыки</span><span class="price">99 руб</span></button>
+    <button type="button"><span>Драйвовая дорожная</span><span class="price">99 руб</span></button>
+    <button type="button"><span>Шедевры классической музыки</span><span class="price">99 руб</span></button>
+    <button type="button"><span>Великолепный джаз</span><span class="price">99 руб</span></button>
+  </div>
 </div>
 
 <script>
