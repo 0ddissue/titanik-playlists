@@ -45,7 +45,8 @@
   }
   .popup.show .popup-box { transform: none; }
   .popup-title { font-size: 18px; font-weight: 600; margin: 0 0 14px; line-height: 1.3; }
-  .popup-text { font-size: 15px; color: #d1d1d6; line-height: 1.5; margin: 0 0 12px; }
+  .popup-text { font-size: 15px; color: #d1d1d6; line-height: 1.5; margin: 0 0 14px; }
+  .popup-amount { display: block; margin-top: 4px; font-size: 17px; font-weight: 700; color: #fff; }
   .popup-pay {
     display: flex; align-items: center; justify-content: center; width: 100%; height: 48px; margin-top: 8px;
     border-radius: 12px; background: linear-gradient(180deg, #9929ea, #5808fb); color: #fff;
@@ -86,8 +87,8 @@
 <div class="popup" id="popup" aria-hidden="true">
   <div class="popup-box">
     <p class="popup-title" id="popupTitle"></p>
-    <p class="popup-text">Размер оплаты — на ваше усмотрение, но мы были бы благодарны сумме от 100 руб.</p>
-    <p class="popup-text">После оплаты пришлите нам чек, чтобы активировать новый плейлист.</p>
+    <p class="popup-text">Размер оплаты — на ваше усмотрение,<br>но мы были бы благодарны<br><b class="popup-amount">сумме от 100&nbsp;руб.</b></p>
+    <p class="popup-text">После оплаты пришлите нам чек,<br>чтобы активировать новый плейлист.</p>
     <a class="popup-pay" href="https://finance.ozon.ru/apps/sbp/ozonbankpay/01a214c6-c3a9-755a-89a2-f50ed8fbccd5" target="_blank" rel="noopener noreferrer" data-umami-event="Оплата">Оплатить</a>
     <button type="button" class="popup-close" id="popupClose">Закрыть</button>
   </div>
